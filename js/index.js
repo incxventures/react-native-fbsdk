@@ -39,6 +39,8 @@ exports.MessageDialog = require('./FBMessageDialog');
 exports.ShareApi = require('./FBShareApi');
 exports.ShareDialog = require('./FBShareDialog');
 
+exports.AppLinkData = require('./FBAppLinkData');
+
 //native components
 exports.LikeView = require('./FBLikeView');
 exports.LoginButton = require('./FBLoginButton');
