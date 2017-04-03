@@ -1,3 +1,17 @@
+# RN FBSDK With Deep Linking Support
+This is a fork of the RN FBSDK adding the ability to get the deep link from FB.
+
+```
+const FBSDK = require('react-native-fbsdk');
+const {
+  AppLinkData,
+} = FBSDK;
+
+AppLinkData.getDeferredDeepLink().then((deepLink) => {
+  // deepLink will be either null or a string from FB.
+});
+```
+
 # React Native FBSDK
 React Native FBSDK is a wrapper around the iOS Facebook SDK and Android Facebook SDK, allowing for Facebook integration in [React Native](https://facebook.github.io/react-native/) apps. Access to native components, from login to sharing, is provided entirely through documented JavaScript modules so you don't have to call a single native function directly.
 
