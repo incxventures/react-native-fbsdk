@@ -9,11 +9,12 @@ import {
 module.exports = {
 
   getDeferredDeepLink(){
-    // iOS not completed yet.
-    if(Platform.OS === 'ios'){
-      return Promise.resolve(null);
-    }
-    return AppLinkData.getDeferredDeepLink();
+    return AppLinkData.getDeferredDeepLink().then((deepLink) => {
+      if(deepLink){
+        return deepLink;
+      }
+      return null;
+    });
   }
 
 };
