@@ -171,12 +171,57 @@ public class FBAppEventsLoggerModule extends ReactContextBaseJavaModule {
      *                   one purchase event to the next.
      */
     @ReactMethod
-    public void logPurchase(double purchaseAmount, String currencyCode, @Nullable ReadableMap parameters) {
+    public void logPurchase(double purchaseAmount, String currencyCode,
+      @Nullable ReadableMap parameters) {
         mAppEventLogger.logPurchase(
                 BigDecimal.valueOf(purchaseAmount),
                 Currency.getInstance(currencyCode),
                 Arguments.toBundle(parameters));
     }
+
+    /**
+     * Logs an app event that tracks that the application was open via Push Notification.
+     * @param payload Notification payload received.
+     */
+     @ReactMethod
+     public void logPushNotificationOpen(@Nullable ReadableMap payload) {
+         mAppEventLogger.logPushNotificationOpen(Arguments.toBundle(payload));
+     }
+
+    /**
+     * Sets a user id to associate with all app events. This can be used to associate your own
+     * user id with the app events logged from this instance of an application.
+     *
+     * The user ID will be persisted between application instantces.
+     *
+     * @param userID A User ID
+     */
+     @ReactMethod
+     public void setUserID(final String userID) {
+         mAppEventLogger.setUserID(userID);
+     }
+
+     /**
+      * Returns the set user id or null if not set
+      *
+      * @return The set User ID or null
+      */
+     @ReactMethod(isBlockingSynchronousMethod = true)
+     @Nullable
+     public String getUserID() {
+       return mAppEventLogger.getUserID();
+     }
+
+     /**
+      * Sends a request to update the properties for the current user, set by
+      * setUserID. You must call setUserID before making this call.
+      *
+      * @param parameters Key-value pairs representing user properties and their values.
+      */
+     @ReactMethod
+     public void updateUserProperties(ReadableMap parameters) {
+       mAppEventLogger.updateUserProperties(Arguments.toBundle(parameters), null);
+     }
 
     /**
      * Explicitly flush any stored events to the server.  Implicit flushes may happen depending on
@@ -185,5 +230,14 @@ public class FBAppEventsLoggerModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void flush() {
         mAppEventLogger.flush();
+    }
+
+    /**
+     * Sets and sends registration id to register the current app for push notifications.
+     * @param registrationId RegistrationId received from GCM.
+     */
+    @ReactMethod
+    public void setPushNotificationsRegistrationId(String registrationId) {
+        AppEventsLogger.setPushNotificationsRegistrationId(registrationId);
     }
 }

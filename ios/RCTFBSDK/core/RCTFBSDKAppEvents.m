@@ -24,7 +24,7 @@
 
 RCT_ENUM_CONVERTER(FBSDKAppEventsFlushBehavior, (@{
   @"auto": @(FBSDKAppEventsFlushBehaviorAuto),
-  @"explicit-only": @(FBSDKAppEventsFlushBehaviorExplicitOnly),
+  @"explicit_only": @(FBSDKAppEventsFlushBehaviorExplicitOnly),
 }), FBSDKAppEventsFlushBehaviorAuto, unsignedIntegerValue)
 
 @end
@@ -60,6 +60,27 @@ RCT_EXPORT_METHOD(logPurchase:(double)purchaseAmount
                   accessToken:nil];
 }
 
+RCT_EXPORT_METHOD(logPushNotificationOpen:(NSDictionary *)payload)
+{
+  [FBSDKAppEvents logPushNotificationOpen:payload];
+}
+
+RCT_EXPORT_METHOD(setUserID:(NSString *)userID)
+{
+  [FBSDKAppEvents setUserID:userID];
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getUserID)
+{
+  return [FBSDKAppEvents userID];
+}
+
+RCT_EXPORT_METHOD(updateUserProperties:(NSDictionary *)parameters)
+{
+  [FBSDKAppEvents updateUserProperties:parameters
+                               handler:nil];
+}
+
 RCT_EXPORT_METHOD(setFlushBehavior:(FBSDKAppEventsFlushBehavior)flushBehavior)
 {
   [FBSDKAppEvents setFlushBehavior:flushBehavior];
@@ -68,6 +89,11 @@ RCT_EXPORT_METHOD(setFlushBehavior:(FBSDKAppEventsFlushBehavior)flushBehavior)
 RCT_EXPORT_METHOD(flush)
 {
   [FBSDKAppEvents flush];
+}
+
+RCT_EXPORT_METHOD(setPushNotificationsDeviceToken:(NSString *)deviceToken)
+{
+  [FBSDKAppEvents setPushNotificationsDeviceToken:[RCTConvert NSData:deviceToken]];
 }
 
 @end

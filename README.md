@@ -106,22 +106,21 @@ public class MainApplication extends Application implements ReactApplication {
     //...
 ```
 
-Override `onCreate()` method
+If you want to use AppEventsLogger to log events, override `onCreate()` method and add
 ```java
 @Override
 public void onCreate() {
   super.onCreate();
-  FacebookSdk.sdkInitialize(getApplicationContext());
-  // If you want to use AppEventsLogger to log events.
   AppEventsLogger.activateApp(this);
+  //...
 }
 ```
 
-Register sdk package in method `getPackages()`.
+Register SDK package in method `getPackages()`.
 ```java
 private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
-    protected boolean getUseDeveloperSupport() {
+    public boolean getUseDeveloperSupport() {
       return BuildConfig.DEBUG;
     }
 
@@ -151,7 +150,7 @@ public class MainActivity extends ReactActivity {
     //...
 ```
 
-Before you can run the project, follow the [Getting Started Guide](https://developers.facebook.com/docs/android/getting-started/) for Facebook Android SDK to set up a Facebook app. You can skip the build.gradle changes since that's taken care of by the rnpm link step above, and the step of calling `FacebookSdk.sdkInitialize`. But **make sure** you follow the rest of the steps such as updating `strings.xml` and `AndroidManifest.xml`.
+Before you can run the project, follow the [Getting Started Guide](https://developers.facebook.com/docs/android/getting-started/) for Facebook Android SDK to set up a Facebook app. You can skip the build.gradle changes since that's taken care of by the rnpm link step above, but **make sure** you follow the rest of the steps such as updating `strings.xml` and `AndroidManifest.xml`.
 
 #### 3.2 iOS project
 The react-native-fbsdk has been linked by rnpm, the next step will be downloading and linking the native Facebook SDK for iOS.
@@ -320,7 +319,7 @@ ShareApi.canShare(this.state.shareLinkContent).then(
   }
 );
 ```
-### [Analytics for Apps](https://developers.facebook.com/docs/app-events)
+### [Analytics](https://developers.facebook.com/docs/app-events)
 #### App events
 ```js
 const FBSDK = require('react-native-fbsdk');
