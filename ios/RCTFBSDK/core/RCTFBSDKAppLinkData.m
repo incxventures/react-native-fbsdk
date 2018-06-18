@@ -21,7 +21,7 @@ RCT_EXPORT_METHOD(getDeferredDeepLink:(RCTPromiseResolveBlock)resolve rejecter:(
             if(error){
                 reject(@"FacebookSDK", @"Fetch Deferred App Link Failed", error);
             }
-            resolve(url);
+            resolve(url.absoluteString);
         }];
     });
 }
